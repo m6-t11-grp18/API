@@ -1,0 +1,21 @@
+{
+  "arrowParens": "always",
+  "bracketSpacing": true,
+  "bracketSameLine": false,
+  "editorconfig": false,
+  "embeddedLanguageFormatting": "auto",
+  "endOfLine": "lf",
+  "parser": "babel-ts",
+  "pluginSearchDirs": [],
+  "printWidth": 60,
+  "proseWrap": "preserve",
+  "quoteProps": "as-needed",
+  "rangeEnd": 0,
+  "rangeStart": 0,
+  "requirePragma": false,
+  "semi": true,
+  "singleAttributePerLine": true,
+  "useTabs": false,
+  "singleQuote": true,
+  "tabWidth": 2
+}

@@ -1,10 +1,9 @@
-import "express-async-errors";
-import express from "express";
-import { Express } from "express";
+import 'express-async-errors';
+import express from 'express';
+import { Express } from 'express';
 
-import cors from "cors";
-import errorMiddleware from "./middleware/error";
-
+import cors from 'cors';
+import errorMiddleware from './middleware/error';
 
 class App {
   server: any;
@@ -16,8 +15,8 @@ class App {
 
   async enableCors() {
     const options: cors.CorsOptions = {
-      methods: "GET,POST,PATCH,DELETE",
-      origin: "*",
+      methods: 'GET,POST,PATCH,DELETE',
+      origin: '*',
     };
 
     this.server.use(cors(options));
@@ -29,7 +28,7 @@ class App {
   }
 
   async routes() {
-    this.server.use("/", );
+    this.server.use('/');
     this.server.use(errorMiddleware);
   }
 }
