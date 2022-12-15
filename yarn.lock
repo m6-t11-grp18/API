@@ -3226,6 +3226,11 @@ colorette@^2.0.10:
   resolved "https://registry.yarnpkg.com/colorette/-/colorette-2.0.19.tgz#cdf044f47ad41a0f4b56b3a0d5b4e6e1a2d5a798"
   integrity sha512-3tlv/dIP7FWvj3BsbHrGLJ6l/oKh1O3TcgBqMn+yyCagOxc23fyzDS6HypQbgxWbkpDnf52p1LuR4eWDQ/K9WQ==
 
+colors@^1.1.2:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/colors/-/colors-1.4.0.tgz#c50491479d4c1bdaed2c9ced32cf7c7dc2360f78"
+  integrity sha512-a+UqTh4kgZg/SlGvfbzDHpgRu7AAQOmmqRHJnxhRZICKFUT91brVhNNt58CMWU9PsBbv3PDCZUHbVxuDiH2mtA==
+
 combined-stream@^1.0.8:
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/combined-stream/-/combined-stream-1.0.8.tgz#c3d45a8b34fd730631a110a8a2520682b31d5a7f"
@@ -4091,6 +4096,11 @@ escodegen@^2.0.0:
   optionalDependencies:
     source-map "~0.6.1"
 
+eslint-config-myconfig@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-myconfig/-/eslint-config-myconfig-0.2.0.tgz#b874d3b8b50c748829d20c20ae341a439de1aa6f"
+  integrity sha512-soXmsy5niqsR+j/Ad5p43MBqt929p6TLUzVfeKZYShxFyjSyULbn/WsRJRjum8A6ySz/PEl2EL//cYQTQf3fpA==
+
 eslint-config-react-app@^7.0.1:
   version "7.0.1"
   resolved "https://registry.yarnpkg.com/eslint-config-react-app/-/eslint-config-react-app-7.0.1.tgz#73ba3929978001c5c86274c017ea57eb5fa644b4"
@@ -4404,6 +4414,13 @@ expect@^29.0.0:
     jest-matcher-utils "^29.3.1"
     jest-message-util "^29.3.1"
     jest-util "^29.3.1"
+
+export-eslint-config@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/export-eslint-config/-/export-eslint-config-0.0.3.tgz#ebe942550119718cb9c5d0899bb01d09b23415b7"
+  integrity sha512-VOXFkeOJLq0ZhLp1X2p9mgOAMxDZEAwGDjaxt+AWQ/QTw6Rz3j2NRLZWvV0uSb2fgOAhAuVR3ib320Cg1g4fsA==
+  dependencies:
+    colors "^1.1.2"
 
 express-async-errors@^3.1.1:
   version "3.1.1"

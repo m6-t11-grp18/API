@@ -20,6 +20,7 @@
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
+    "export-eslint-config": "^0.0.3",
     "express": "^4.18.2",
     "express-async-errors": "^3.1.1",
     "jsonwebtoken": "^8.5.1",
@@ -32,7 +33,6 @@
     "typescript": "^4.9.4",
     "web-vitals": "^2.1.0"
   },
-
   "devDependencies": {
     "@prisma/client": "^4.7.1",
     "@types/bcryptjs": "^2.4.2",
