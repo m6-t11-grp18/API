@@ -26,6 +26,10 @@ export interface IUserEdit {
   isVerify?: boolean;
 }
 
+export interface IUserDelete {
+  userId: string;
+}
+
 export interface IUserAddressCreate {
   userId: string;
   zipCode: string;
@@ -44,6 +48,11 @@ export interface IUserAddressEdit {
   street?: string;
   number?: string;
   complement?: string;
+}
+
+export interface IUserAddressDelete {
+  userId: string;
+  addressId?: string;
 }
 
 export interface IUserSessions {
@@ -73,6 +82,11 @@ export interface IAnnouncementEdit {
   cover?: string;
 }
 
+export interface IAnnouncementDelete {
+  userId: string;
+  announcementId: string;
+}
+
 export interface IAnnouncementImagesCreate {
   userId?: string;
   announcementId: string;
@@ -86,9 +100,38 @@ export interface IAnnouncementImagesEdit {
   image: string;
 }
 
+export interface IAnnouncementImagesDelete {
+  userId?: string;
+  announcementId: string;
+}
+
 export interface IbidCreate {
   userId: string;
   announcementId: string;
   userName: string;
   bid: string;
+}
+
+export interface IbidDelete {
+  userId: string;
+  bidId: string;
+}
+
+export interface IReplyCreate {
+  userId: string;
+  announcementId: string;
+  userName: string;
+  reply: string;
+}
+
+export interface IReplyEdit {
+  userId: string;
+  announcementId: string;
+  userName: string;
+  reply: string;
+}
+
+export interface IReplyDelete {
+  userId: string;
+  replyId: string;
 }

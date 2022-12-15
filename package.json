@@ -14,10 +14,12 @@
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
     "@types/jest": "^27.0.1",
+    "@types/multer": "^1.4.7",
     "@types/node": "^18.11.14",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "bcryptjs": "^2.4.3",
+    "cloudinary": "^1.32.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "eslint": "^8.0.1",
@@ -28,7 +30,9 @@
     "export-eslint-config": "^0.0.3",
     "express": "^4.18.2",
     "express-async-errors": "^3.1.1",
+    "fs": "^0.0.1-security",
     "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.5-lts.1",
     "prisma": "^4.7.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -36,7 +40,8 @@
     "reflect-metadata": "^0.1.13",
     "ts-node": "^10.9.1",
     "typescript": "*",
-    "web-vitals": "^2.1.0"
+    "web-vitals": "^2.1.0",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@prisma/client": "^4.7.1",

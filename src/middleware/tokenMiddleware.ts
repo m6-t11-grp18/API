@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 import {
   BadRequestError,
   UnauthorizedError,
-} from '../../utils/error';
+} from '../utils/error';
 
 class TokenMiddleware {
   async customer(
