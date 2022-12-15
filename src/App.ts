@@ -29,6 +29,7 @@ class App {
 
   async routes() {
     this.server.use('/');
+    this.server.use('/auth', )
     this.server.use(errorMiddleware);
   }
 }
