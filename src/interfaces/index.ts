@@ -61,7 +61,6 @@ export interface IUserSessions {
   ip: string;
   type: string;
 }
-
 export interface IAnnouncementCreate {
   userId: string;
   saleType: string;
