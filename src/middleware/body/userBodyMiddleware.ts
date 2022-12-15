@@ -1,128 +1,191 @@
-import { NextFunction, Request, Response } from "express";
-import { ICustomerCreate } from "../../../interfaces";
-import { BadRequestError } from "../../../utils/error";
+import { NextFunction, Request, Response } from 'express';
+import {
+  IUserCreate,
+  IUserEdit,
+  IUserAddressEdit,
+} from '../../interfaces';
+import { BadRequestError } from '../../utils/error';
 
-class customerBodyMiddleware {
-  async create(req: Request, res: Response, next: NextFunction) {
-    const { email, name, phone, password }: ICustomerCreate = req.body;
-
-    if (!email || !name || !phone || !password) {
-      throw new BadRequestError("invalid body format");
-    }
-    if (
-      typeof email !== "string" ||
-      typeof name !== "string" ||
-      typeof phone !== "string" ||
-      typeof password !== "string"
-    ) {
-      throw new BadRequestError("invalid body format");
-    }
-
-    next();
-  }
-
-  async edit(req: Request, res: Response, next: NextFunction) {
-    const { email, name, phone, password } = req.body;
-
-    if (!email && !name && !phone && !password) {
-      throw new BadRequestError("invalid body format");
-    }
+class userBodyMiddleware {
+  async create(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    const {
+      name,
+      email,
+      password,
+      cpf,
+      phone,
+      birth,
+      descripition,
+      type,
+    }: IUserCreate = req.body;
 
     if (
-      (typeof email !== "string" && email) ||
-      (typeof name !== "string" && name) ||
-      (typeof phone !== "string" && phone) ||
-      (typeof password !== "string" && password)
+      !name ||
+      !email ||
+      !password ||
+      !cpf ||
+      !phone ||
+      !birth ||
+      !descripition ||
+      !type
     ) {
-      throw new BadRequestError("invalid body format");
+      throw new BadRequestError('invalid body format');
+    }
+    if (
+      typeof name !== 'string' ||
+      typeof email !== 'string' ||
+      typeof password !== 'string' ||
+      typeof cpf !== 'string' ||
+      typeof phone !== 'string' ||
+      typeof birth !== 'string' ||
+      typeof descripition !== 'string' ||
+      typeof type !== 'string'
+    ) {
+      throw new BadRequestError('invalid body format');
     }
 
     next();
   }
 
-  async createPhone(req: Request, res: Response, next: NextFunction) {
-    const { phone } = req.body;
+  async edit(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    const {
+      name,
+      email,
+      password,
+      cpf,
+      phone,
+      birth,
+      descripition,
+      type,
+    }: IUserEdit = req.body;
 
-    if (!phone) {
-      throw new BadRequestError("invalid body format");
+    if (
+      !name &&
+      !email &&
+      !password &&
+      !cpf &&
+      !phone &&
+      !birth &&
+      !descripition &&
+      !type
+    ) {
+      throw new BadRequestError('invalid body format');
     }
 
-    if (typeof phone !== "string") {
-      throw new BadRequestError("invalid body format");
-    }
-
-    next();
-  }
-
-  async editPhone(req: Request, res: Response, next: NextFunction) {
-    const { phone_id, phone } = req.body;
-
-    if (!phone || !phone_id) {
-      throw new BadRequestError("invalid body format");
-    }
-
-    if (typeof phone !== "string" || typeof phone_id !== "string") {
-      throw new BadRequestError("invalid body format");
-    }
-
-    next();
-  }
-
-  async deletePhone(req: Request, res: Response, next: NextFunction) {
-    const { phone_id } = req.body;
-
-    if (!phone_id) {
-      throw new BadRequestError("invalid body format");
-    }
-
-    if (typeof phone_id !== "string") {
-      throw new BadRequestError("invalid body format");
-    }
-
-    next();
-  }
-
-  async createEmail(req: Request, res: Response, next: NextFunction) {
-    const { email } = req.body;
-
-    if (!email) {
-      throw new BadRequestError("invalid body format");
-    }
-
-    if (typeof email !== "string") {
-      throw new BadRequestError("invalid body format");
+    if (
+      (typeof name !== 'string' && name) ||
+      (typeof email !== 'string' && email) ||
+      (typeof password !== 'string' && password) ||
+      (typeof cpf !== 'string' && cpf) ||
+      (typeof phone !== 'string' && phone) ||
+      (typeof birth !== 'string' && birth) ||
+      (typeof descripition !== 'string' && descripition) ||
+      (typeof type !== 'string' && type)
+    ) {
+      throw new BadRequestError('invalid body format');
     }
 
     next();
   }
 
-  async editEmail(req: Request, res: Response, next: NextFunction) {
-    const { email_id, email } = req.body;
+  async createAddress(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    const {
+      zipCode,
+      state,
+      city,
+      street,
+      number,
+      complement,
+    } = req.body;
 
-    if (!email || !email_id) {
-      throw new BadRequestError("invalid body format");
+    if (!zipCode || !state || !city || !street || !number) {
+      throw new BadRequestError('invalid body format');
     }
 
-    if (typeof email !== "string" || typeof email_id !== "string") {
-      throw new BadRequestError("invalid body format");
+    if (
+      typeof zipCode !== 'string' ||
+      typeof state !== 'string' ||
+      typeof city !== 'string' ||
+      typeof street !== 'string' ||
+      typeof number !== 'string'
+    ) {
+      throw new BadRequestError('invalid body format');
     }
 
     next();
   }
 
-  async deleteEmail(req: Request, res: Response, next: NextFunction) {
-    const { email_id } = req.body;
+  async editAddress(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    const {
+      addressId,
+      zipCode,
+      state,
+      city,
+      street,
+      number,
+      complement,
+    }: IUserAddressEdit = req.body;
 
-    if (!email_id) {
-      throw new BadRequestError("invalid body format");
+    if (
+      !addressId ||
+      (!zipCode &&
+        !state &&
+        !city &&
+        !street &&
+        !number &&
+        !complement)
+    ) {
+      throw new BadRequestError('invalid body format');
     }
 
-    if (typeof email_id !== "string") {
-      throw new BadRequestError("invalid body format");
+    if (
+      (typeof addressId !== 'string' && addressId) ||
+      (typeof zipCode !== 'string' && zipCode) ||
+      (typeof state !== 'string' && state) ||
+      (typeof city !== 'string' && city) ||
+      (typeof street !== 'string' && street) ||
+      (typeof number !== 'string' && number) ||
+      (typeof complement !== 'string' && complement)
+    ) {
+      throw new BadRequestError('invalid body format');
+    }
+
+    next();
+  }
+
+  async deleteAddress(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    const { addressId } = req.body;
+
+    if (!addressId) {
+      throw new BadRequestError('invalid body format');
+    }
+
+    if (typeof addressId !== 'string') {
+      throw new BadRequestError('invalid body format');
     }
 
     next();
   }
 }
 
-export default new customerBodyMiddleware();
+export default new userBodyMiddleware();

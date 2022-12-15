@@ -42,6 +42,7 @@ export interface IUserAddressCreate {
 
 export interface IUserAddressEdit {
   userId: string;
+  addressId: string
   zipCode?: string;
   state?: string;
   city?: string;
@@ -52,7 +53,7 @@ export interface IUserAddressEdit {
 
 export interface IUserAddressDelete {
   userId: string;
-  addressId?: string;
+  addressId: string
 }
 
 export interface IUserSessions {
