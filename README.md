@@ -10,12 +10,16 @@
 <h3 style="margin: 1vh 4vw 0">1.2) Configure as variveis do ORM:</h3>
 <p style="margin: 1vh 6vw"><code>DATABASE_URL="postgresql://USUARIO:SENHA@localhost:PORTA/DATABASE?schema=public"`</code></p>
 
-<p style="margin: 0 6vw">USUARIO: Usuário de acesso ao postgres</p>
-<p style="margin: 0 6vw">SENHA: Senha de acesso</p>
-<p style="margin: 0 6vw">PORTA: Porta de acesso do postgres (padrão 5432)</p>
-<p style="margin: 0 6vw 2vw 6vw">DATABASE: Nome do Data Base criado</p>
+<p style="margin: 0 6vw">USUARIO: Usuário de acesso ao postgres;</p>
+<p style="margin: 0 6vw">SENHA: Senha de acesso;</p>
+<p style="margin: 0 6vw">PORTA: Porta de acesso do postgres (padrão 5432);</p>
+<p style="margin: 0 6vw 2vw 6vw">DATABASE: Nome do Data Base criado.</p>
 
-<h3 style="margin: 1vh 4vw 0">1.3) Configure a chave secreta para usuário</h3> 
+<h3 style="margin: 1vh 4vw 0">1.3) Configure a chave secreta para jsonwebtoken:</h3> 
+<p style="margin: 0 6vw"><code>SECRET_KEY=</code></p>
+<p style="margin: 0 6vw 2vw 6vw">Chave secreta do jsonwebtoken, deve estar em aspas.</p>
+
+<h3 style="margin: 1vh 4vw 0">1.4) Configure a chave secreta para usuário:</h3> 
 <p style="margin: 0 6vw"><code>ADM_SECRET_KEY=</code></p>
 
 <p style="margin: 0 6vw">Chave secreta para criar usuário com poderes administrativos.Ao ser criada deve ser enviada na requisição do front.</p>

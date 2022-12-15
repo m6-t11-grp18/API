@@ -9,7 +9,7 @@ export class RequestErrors extends Error {
 
 export class ErrorHandler extends RequestErrors {
   constructor(message: string, status: number) {
-    super(message, status)
+    super(message, status);
   }
 }
 

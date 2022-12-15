@@ -1,0 +1,10 @@
+{
+  "arrowParens": "always",
+  "bracketSpacing": true,
+  "bracketSameLine": false,
+  "parser": "babel-ts",
+  "printWidth": 60,
+  "useTabs": false,
+  "singleQuote": true,
+  "tabWidth": 2
+}

@@ -20,7 +20,7 @@ model Users {
 
   password String
 
-  cpf String @unique
+  cpf String
 
   phone String?
 
@@ -62,7 +62,7 @@ model UserAddress {
 
   city String
 
-  estreet String
+  street String
 
   number String
 
@@ -72,7 +72,7 @@ model UserAddress {
 
   updatedAt DateTime @updatedAt @default(now())
 
-  user Users @relation(fields: [UserId], references: [id], onDelete: SetNull)
+  user Users @relation(fields: [UserId], references: [id], onDelete: Cascade)
   UserId String @unique
 
   @@map("user_address")
