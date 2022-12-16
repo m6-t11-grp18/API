@@ -17,6 +17,14 @@ class userController {
   async read() {}
 
   async delete() {}
+
+  async addressCreate() {}
+
+  async addressUpdate() {}
+
+  async addressRead() {}
+
+  async addressDelete() {}
 }
 
 export default new userController();
