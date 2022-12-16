@@ -33,3 +33,23 @@
 <h3 style="margin: 1vh 4vw 0">2.2) Criar Data Base:</h3>
 <p style="margin: 0 6vw"><code>yarn db</code></p>
 <p style="margin: 0 6vw"><code>npm db</code></p>
+
+<h2 style="margin: 2vh 4vw 0 0" id="init">3) Docker: </h2>
+<h3 style="margin: 1vh 4vw 0">3.1) Arquivo .yml:</h3>
+<p style="margin: 0 6vw">no arquivo <code>docker-compose.yml</code> temos que alterar as chaves:</p>
+<p style="margin: 0 6vw"><code>container_name</code> para o nome do data base, linhas 5 e 15</p>
+<p style="margin: 0 6vw"><code>POSTGRES_USER</code> para seu usuário do postgres</p>
+<p style="margin: 0 6vw"><code>POSTGRES_PASSWORD</code> para sua senha do postgres</p>
+<p style="margin: 0 6vw"><code>POSTGRES_DB</code> para o nome do data base criado</p>
+
+<h3 style="margin: 1vh 4vw 0">3.2) Criando o container:</h3>
+<p style="margin: 0 6vw">Rodar os seguintes comandos:</p>
+<p style="margin: 0 6vw 2vh">1) <code>docker run --name express_node -p 3333:3333 -d motorshop/node:latest</code></p>
+<p style="margin: 0 6vw 2vh">2) <code>docker build -t motorshop/node:latest .</code></p>
+<p style="margin: 0 6vw">3) <code>docker-compose up</code></p>
+<p style="margin: 0 6vw">Caso queira parar o container:</p>
+<p style="margin: 0 6vw"><code>docker-compose down</code></p>
+
+<h2 style="margin: 2vh 4vw 0 0" id="init">4) Inicializando o servidor:</h2>
+<p style="margin: 0 6vw">Rodar o comando:</p>
+<p style="margin: 0 6vw">3) <code>yarn dev</code> ou <code>npm dev</code></p>

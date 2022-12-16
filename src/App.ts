@@ -8,6 +8,7 @@ import userRoutes from './routes/userRoutes';
 import announcementRoutes from './routes/announcementRoutes';
 import bidRoutes from './routes/bidRoutes';
 import replyRoutes from './routes/replyRoutes';
+import authRotes from './routes/authRoutes';
 
 class App {
   server: any;
@@ -33,7 +34,7 @@ class App {
 
   async routes() {
     this.server.use('/');
-    this.server.use('/auth');
+    this.server.use('/auth', authRotes);
     this.server.use('/user', userRoutes);
     this.server.use('/announcement', announcementRoutes);
     this.server.use('/reply', replyRoutes);
