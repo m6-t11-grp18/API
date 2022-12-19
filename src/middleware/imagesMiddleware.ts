@@ -22,7 +22,7 @@ class imagesMiddleware {
           console.log(error);
         }
       });
-      cloudinaryRespo?.url.push(upload);
+      cloudinaryRespo.push(upload?.url);
     }
 
     return cloudinaryRespo;
