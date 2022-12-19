@@ -27,8 +27,6 @@ model Users {
   birth String?
 
   descripition String?
-  
-  type String
 
   isActive Boolean?
 
@@ -97,6 +95,8 @@ model Announcement {
   id String @id @default(uuid())
 
   saleType String?
+
+  title String?
 
   descripition String?
 
