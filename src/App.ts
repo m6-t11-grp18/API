@@ -1,6 +1,5 @@
 import 'express-async-errors';
 import express from 'express';
-import { Express } from 'express';
 
 import cors from 'cors';
 import errorMiddleware from './middleware/errorMiddleware';
@@ -9,7 +8,12 @@ import announcementRoutes from './routes/announcementRoutes';
 import bidRoutes from './routes/bidRoutes';
 import replyRoutes from './routes/replyRoutes';
 import authRotes from './routes/authRoutes';
+import bodyParser from 'body-parser';
 
+const multipart = require('connect-multiparty');
+const multipartMiddleware = multipart({
+  maxFieldsSize: 20 * 1024 * 1024,
+});
 class App {
   server: any;
   constructor() {
@@ -33,13 +37,18 @@ class App {
   }
 
   async routes() {
-    this.server.use('/');
+    // this.server.use('/');
     this.server.use('/auth', authRotes);
     this.server.use('/user', userRoutes);
     this.server.use('/announcement', announcementRoutes);
-    this.server.use('/reply', replyRoutes);
-    this.server.use('/bid', bidRoutes);
+    // this.server.use('/reply', replyRoutes);
+    // this.server.use('/bid', bidRoutes);
     this.server.use(errorMiddleware);
+    this.server.use(bodyParser.json());
+    this.server.use(
+      bodyParser.urlencoded({ extended: true })
+    );
+    this.server.use(multipartMiddleware);
   }
 }
 

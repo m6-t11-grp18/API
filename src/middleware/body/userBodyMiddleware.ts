@@ -3,8 +3,8 @@ import {
   IUserCreate,
   IUserEdit,
   IUserAddressEdit,
-} from '../../interfaces';
-import { BadRequestError } from '../../utils/error';
+} from '../../interfaces/index';
+import { BadRequestError } from '../../utils/error/index';
 
 class userBodyMiddleware {
   async create(
@@ -20,7 +20,6 @@ class userBodyMiddleware {
       phone,
       birth,
       descripition,
-      type,
     }: IUserCreate = req.body;
 
     if (
@@ -30,8 +29,7 @@ class userBodyMiddleware {
       !cpf ||
       !phone ||
       !birth ||
-      !descripition ||
-      !type
+      !descripition
     ) {
       throw new BadRequestError('invalid body format');
     }
@@ -42,8 +40,7 @@ class userBodyMiddleware {
       typeof cpf !== 'string' ||
       typeof phone !== 'string' ||
       typeof birth !== 'string' ||
-      typeof descripition !== 'string' ||
-      typeof type !== 'string'
+      typeof descripition !== 'string'
     ) {
       throw new BadRequestError('invalid body format');
     }

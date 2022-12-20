@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { BadRequestError } from '../../utils/error';
+import { BadRequestError } from '../../utils/error/index';
 
 class authBodyMiddleware {
   async login(

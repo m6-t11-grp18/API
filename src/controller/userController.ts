@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { IUserCreate } from '../interfaces';
+import { IUserCreate } from '../interfaces/index';
 import userService from '../service/userService';
-import authService from '../service/authService';
+// import authService from '../service/authService';
 /*
 envio de imagens:
 O serviço tem um service próprio, já pronto, 
@@ -24,7 +24,8 @@ class userController {
     }: IUserCreate = req.body;
     const ip = req.ip;
 
-    const user = await userService.create({
+    const data = await userService.create({
+      ip,
       name,
       email,
       password,
@@ -34,15 +35,7 @@ class userController {
       descripition,
     });
 
-    const token = await authService.login(
-      email,
-      password,
-      ip
-    );
-
-    return res
-      .status(201)
-      .json({ user, accessToken: token });
+    return res.status(201).json({ data });
   }
 
   async update() {}

@@ -1,4 +1,5 @@
 export interface IUserCreate {
+  ip: string;
   name: string;
   email: string;
   password: string;
@@ -58,13 +59,15 @@ export interface IUserSessions {
   type: string;
 }
 export interface IAnnouncementCreate {
+  ip: string;
+  title: string;
   userId: string;
   saleType: string;
   descripition: string;
   year: string;
   milage: string;
   price: string;
-  cover: string;
+  cover: string[];
 }
 
 export interface IAnnouncementEdit {

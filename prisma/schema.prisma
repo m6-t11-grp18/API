@@ -94,9 +94,9 @@ model UserSessions {
 model Announcement {
   id String @id @default(uuid())
 
-  saleType String?
-
   title String?
+
+  saleType String?
 
   descripition String?
 

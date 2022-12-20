@@ -12,7 +12,7 @@ const CLOUDINARY_URL = cloudinary.config({
 export const upload = multer({
   storage: multer.diskStorage({
     destination: 'upload/motorshop',
-    filename: (request, file, callback) => {
+    filename: (request: any, file: any, callback: any) => {
       const filename = `${file.originalname}`;
 
       return callback(null, filename);
