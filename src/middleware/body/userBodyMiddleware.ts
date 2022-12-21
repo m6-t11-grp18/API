@@ -5,6 +5,7 @@ import {
   IUserAddressEdit,
 } from '../../interfaces/index';
 import { BadRequestError } from '../../utils/error/index';
+import verifyBodyMiddeware from '../verifyBodyMiddeware';
 
 class userBodyMiddleware {
   async create(
@@ -12,42 +13,54 @@ class userBodyMiddleware {
     res: Response,
     next: NextFunction
   ) {
-    console.log(req.body, typeof req.body, Array.isArray(req.body));
-    
-    const {
-      name,
-      email,
-      password,
-      cpf,
-      phone,
-      birth,
-      descripition,
-    }: IUserCreate = req.body;
+    const response = await verifyBodyMiddeware(
+      req,
+      [
+        'name',
+        'email',
+        'password',
+        'cpf',
+        'phone',
+        'birth',
+        'descripition'
+      ],
+      [
+        'string',
+        'string',
+        'string',
+        'string',
+        'string',
+        'string',
+        'string'
+      ],
+      {
+        email: (value: string) => {
+          const RegExp =
+            /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+          return RegExp.test(value)
+            ? undefined
+            : {
+                message: 'must be a email',
+                expected: true,
+              };
+        },
+        password: (value: string) => {
+          const RegExp =
+            /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,64})/g;
+          return RegExp.test(value)
+            ? undefined
+            : {
+                message:
+                  'include upper lower case, symbol and number',
+                expected: true,
+              };
+        },
+      }
+    );
 
-    if (
-      !name ||
-      !email ||
-      !password ||
-      !cpf ||
-      !phone ||
-      !birth ||
-      !descripition
-    ) {
-      throw new BadRequestError('invalid body format');
-    }
-    if (
-      typeof name !== 'string' ||
-      typeof email !== 'string' ||
-      typeof password !== 'string' ||
-      typeof cpf !== 'string' ||
-      typeof phone !== 'string' ||
-      typeof birth !== 'string' ||
-      typeof descripition !== 'string'
-    ) {
-      throw new BadRequestError('invalid body format');
-    }
-
-    next();
+    response === undefined
+      ? next()
+      : res.status(400).json(response);
   }
 
   async edit(
@@ -55,43 +68,6 @@ class userBodyMiddleware {
     res: Response,
     next: NextFunction
   ) {
-    const {
-      name,
-      email,
-      password,
-      cpf,
-      phone,
-      birth,
-      descripition,
-      type,
-    }: IUserEdit = req.body;
-
-    if (
-      !name &&
-      !email &&
-      !password &&
-      !cpf &&
-      !phone &&
-      !birth &&
-      !descripition &&
-      !type
-    ) {
-      throw new BadRequestError('invalid body format');
-    }
-
-    if (
-      (typeof name !== 'string' && name) ||
-      (typeof email !== 'string' && email) ||
-      (typeof password !== 'string' && password) ||
-      (typeof cpf !== 'string' && cpf) ||
-      (typeof phone !== 'string' && phone) ||
-      (typeof birth !== 'string' && birth) ||
-      (typeof descripition !== 'string' && descripition) ||
-      (typeof type !== 'string' && type)
-    ) {
-      throw new BadRequestError('invalid body format');
-    }
-
     next();
   }
 
