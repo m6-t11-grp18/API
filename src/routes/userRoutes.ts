@@ -1,32 +1,13 @@
 import { Router } from 'express';
 import userController from '../controller/userController';
 import userBodyMiddleware from '../middleware/body/userBodyMiddleware';
-import veryfyBodyMiddeware from '../middleware/veryfyBodyMiddeware';
+import veryfyBodyMiddeware from '../middleware/verifyBodyMiddeware';
 
 const userRoutes = Router();
 
 userRoutes.post(
   '/',
-  veryfyBodyMiddeware(
-    [
-      'name',
-      'email',
-      'password',
-      'cpf',
-      'phone',
-      'birth',
-      'descripition',
-    ],
-    [
-      'string',
-      'string',
-      'string',
-      'string',
-      'string',
-      'string',
-      'string',
-    ]
-  ),
+  userBodyMiddleware.create,
   userController.create
 );
 

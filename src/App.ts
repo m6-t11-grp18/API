@@ -8,7 +8,6 @@ import announcementRoutes from './routes/announcementRoutes';
 import bidRoutes from './routes/bidRoutes';
 import replyRoutes from './routes/replyRoutes';
 import authRotes from './routes/authRoutes';
-import bodyParser from 'body-parser';
 
 const multipart = require('connect-multiparty');
 const multipartMiddleware = multipart({
@@ -44,11 +43,6 @@ class App {
     // this.server.use('/reply', replyRoutes);
     // this.server.use('/bid', bidRoutes);
     this.server.use(errorMiddleware);
-    this.server.use(bodyParser.json());
-    this.server.use(
-      bodyParser.urlencoded({ extended: true })
-    );
-    this.server.use(multipartMiddleware);
   }
 }
 
