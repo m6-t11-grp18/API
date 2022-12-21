@@ -6,7 +6,7 @@ import {
 } from '../utils/error';
 
 class TokenMiddleware {
-  async customer(
+  async user(
     req: Request,
     res: Response,
     next: NextFunction
@@ -38,7 +38,7 @@ class TokenMiddleware {
     );
   }
 
-  async manager(
+  async adm(
     req: Request,
     res: Response,
     next: NextFunction

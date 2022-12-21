@@ -1,10 +1,5 @@
-import { NextFunction, Request, Response } from 'express';
-import {
-  IUserCreate,
-  IUserEdit,
-  IUserAddressEdit,
-} from '../../interfaces';
-import { BadRequestError } from '../../utils/error';
+// import { NextFunction, Request, Response } from 'express';
+// import { BadRequestError } from '../../utils/error/index';
 
 class bidBodyMiddleware {
   async create() {}

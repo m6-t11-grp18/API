@@ -8,7 +8,6 @@ CREATE TABLE "users" (
     "phone" TEXT,
     "birth" TEXT,
     "descripition" TEXT,
-    "type" TEXT NOT NULL,
     "isActive" BOOLEAN,
     "isAdm" BOOLEAN NOT NULL,
     "isVerify" BOOLEAN,
@@ -24,7 +23,7 @@ CREATE TABLE "user_address" (
     "zipCode" TEXT,
     "state" TEXT NOT NULL,
     "city" TEXT NOT NULL,
-    "estreet" TEXT NOT NULL,
+    "street" TEXT NOT NULL,
     "number" TEXT NOT NULL,
     "complement" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -48,6 +47,7 @@ CREATE TABLE "user_sessions" (
 -- CreateTable
 CREATE TABLE "announcement" (
     "id" TEXT NOT NULL,
+    "title" TEXT,
     "saleType" TEXT,
     "descripition" TEXT,
     "year" TEXT,
@@ -66,7 +66,7 @@ CREATE TABLE "announcement" (
 -- CreateTable
 CREATE TABLE "announcement_image" (
     "id" TEXT NOT NULL,
-    "image" TEXT NOT NULL,
+    "image" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "AnnouncementId" TEXT NOT NULL,
@@ -82,7 +82,6 @@ CREATE TABLE "announcement_bids" (
     "winner" BOOLEAN,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "AnnouncementId" TEXT NOT NULL,
-    "userId" TEXT NOT NULL,
 
     CONSTRAINT "announcement_bids_pkey" PRIMARY KEY ("id")
 );
@@ -95,7 +94,6 @@ CREATE TABLE "announcement_replys" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "AnnouncementId" TEXT NOT NULL,
-    "userId" TEXT NOT NULL,
 
     CONSTRAINT "announcement_replys_pkey" PRIMARY KEY ("id")
 );
@@ -104,13 +102,10 @@ CREATE TABLE "announcement_replys" (
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "users_cpf_key" ON "users"("cpf");
-
--- CreateIndex
 CREATE UNIQUE INDEX "user_address_UserId_key" ON "user_address"("UserId");
 
 -- AddForeignKey
-ALTER TABLE "user_address" ADD CONSTRAINT "user_address_UserId_fkey" FOREIGN KEY ("UserId") REFERENCES "users"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "user_address" ADD CONSTRAINT "user_address_UserId_fkey" FOREIGN KEY ("UserId") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "user_sessions" ADD CONSTRAINT "user_sessions_UserId_fkey" FOREIGN KEY ("UserId") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -125,10 +120,4 @@ ALTER TABLE "announcement_image" ADD CONSTRAINT "announcement_image_Announcement
 ALTER TABLE "announcement_bids" ADD CONSTRAINT "announcement_bids_AnnouncementId_fkey" FOREIGN KEY ("AnnouncementId") REFERENCES "announcement"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "announcement_bids" ADD CONSTRAINT "announcement_bids_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "announcement_replys" ADD CONSTRAINT "announcement_replys_AnnouncementId_fkey" FOREIGN KEY ("AnnouncementId") REFERENCES "announcement"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "announcement_replys" ADD CONSTRAINT "announcement_replys_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;

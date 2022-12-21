@@ -1,6 +1,6 @@
 import { compareSync } from 'bcryptjs';
-import prismaConnect from '../utils/dataBaseClient';
-import { UnauthorizedError } from '../utils/error';
+import prismaConnect from '../utils/dataBaseClient/index';
+import { UnauthorizedError } from '../utils/error/index';
 import jwt from 'jsonwebtoken';
 
 class AuthService {
@@ -18,7 +18,7 @@ class AuthService {
         data: {
           UserId: findUser!.id,
           ip,
-          type: 'login customer: wrong password',
+          type: 'user: login/wrong password',
         },
       });
       throw new UnauthorizedError('Invalid credentials');
@@ -30,7 +30,7 @@ class AuthService {
         id: findUser.id,
         email: findUser.email,
       },
-      process.env.SECRET_KEY as string,
+      process.env['SECRET_KEY'] as string,
       { expiresIn: '72h', subject: findUser.id }
     );
 
@@ -38,7 +38,7 @@ class AuthService {
       data: {
         UserId: findUser.id,
         ip,
-        type: 'login customer: sucess',
+        type: 'user: login',
       },
     });
 
@@ -82,12 +82,12 @@ class AuthService {
         isAdm: true,
         id: findManager.id,
       },
-      process.env.SECRET_KEY as string,
+      process.env['SECRET_KEY'] as string,
       { expiresIn: '72h', subject: findManager.id }
     );
 
     await prismaConnect.userSessions.create({
-      data: { UserId: findManager.id, ip, type: 'login' },
+      data: { UserId: findManager.id, ip, type: 'user: create account' },
     });
     return token;
   }
