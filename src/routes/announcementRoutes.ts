@@ -3,21 +3,24 @@ import announcementController from '../controller/announcementController';
 import authController from '../controller/authController';
 import announcementBodyMiddleware from '../middleware/body/announcementBodyMiddleware';
 import tokenMiddleware from '../middleware/tokenMiddleware';
-import multer from 'multer';
-import { v2 as cloudinary } from 'cloudinary';
-import fs from 'fs';
-import { upload } from '../utils/imageServer/cloudinaryUtils';
+import { uploader } from '../utils/imageServer/multerUtils';
 
 const announcementRoutes = Router();
 
-announcementRoutes.patch(
+announcementRoutes.post(
   '/',
   tokenMiddleware.user,
-  upload.array("image", Infinity),
+  uploader.fields([
+    { name: 'announcementCover', maxCount: Infinity },
+    { name: 'announcementImages', maxCount: Infinity },
+  ]),
   announcementController.create
 );
 
-// announcementRoutes.get('/');
+announcementRoutes.get(
+  '/products',
+  announcementController.getAllProducts
+);
 
 // announcementRoutes.patch('/');
 

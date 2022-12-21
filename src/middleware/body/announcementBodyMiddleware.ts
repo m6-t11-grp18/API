@@ -15,7 +15,6 @@ class announcementBodyMiddleware {
       milage,
       price,
     } = req.body;
-    console.log(req.body);
 
     if (!title || !saleType || !year || !milage || !price) {
       throw new BadRequestError('invalid body format');

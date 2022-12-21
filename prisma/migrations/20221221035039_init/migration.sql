@@ -66,7 +66,7 @@ CREATE TABLE "announcement" (
 -- CreateTable
 CREATE TABLE "announcement_image" (
     "id" TEXT NOT NULL,
-    "image" TEXT NOT NULL,
+    "image" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "AnnouncementId" TEXT NOT NULL,
@@ -82,7 +82,6 @@ CREATE TABLE "announcement_bids" (
     "winner" BOOLEAN,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "AnnouncementId" TEXT NOT NULL,
-    "userId" TEXT NOT NULL,
 
     CONSTRAINT "announcement_bids_pkey" PRIMARY KEY ("id")
 );
@@ -95,7 +94,6 @@ CREATE TABLE "announcement_replys" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "AnnouncementId" TEXT NOT NULL,
-    "userId" TEXT NOT NULL,
 
     CONSTRAINT "announcement_replys_pkey" PRIMARY KEY ("id")
 );
@@ -122,10 +120,4 @@ ALTER TABLE "announcement_image" ADD CONSTRAINT "announcement_image_Announcement
 ALTER TABLE "announcement_bids" ADD CONSTRAINT "announcement_bids_AnnouncementId_fkey" FOREIGN KEY ("AnnouncementId") REFERENCES "announcement"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "announcement_bids" ADD CONSTRAINT "announcement_bids_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "announcement_replys" ADD CONSTRAINT "announcement_replys_AnnouncementId_fkey" FOREIGN KEY ("AnnouncementId") REFERENCES "announcement"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "announcement_replys" ADD CONSTRAINT "announcement_replys_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;

@@ -2,6 +2,8 @@ import multer from 'multer';
 import { v2 as cloudinary } from 'cloudinary';
 import fs from 'fs';
 import 'dotenv/config';
+import { v4 as uuid } from 'uuid';
+import { NextFunction, Request, Response } from 'express';
 
 const CLOUDINARY_URL = cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -9,11 +11,11 @@ const CLOUDINARY_URL = cloudinary.config({
   api_secret: process.env.CLOUD_SECRET,
 });
 
-export const upload = multer({
+export const uploader = multer({
   storage: multer.diskStorage({
-    destination: 'upload/motorshop',
+    destination: 'upload/motorshop/',
     filename: (request: any, file: any, callback: any) => {
-      const filename = `${file.originalname}`;
+      const filename = `${uuid()}`;
 
       return callback(null, filename);
     },

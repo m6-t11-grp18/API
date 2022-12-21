@@ -14,7 +14,7 @@ export class ErrorHandler extends RequestErrors {
 }
 
 export class BadRequestError extends RequestErrors {
-  constructor(message: string) {
+  constructor(message: any) {
     super(message, 400);
   }
 }

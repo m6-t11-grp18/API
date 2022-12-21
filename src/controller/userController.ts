@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { IUserCreate } from '../interfaces/index';
+import { excludeResponseMiddleware } from '../middleware/excludeResponseMiddleware';
 import userService from '../service/userService';
 // import authService from '../service/authService';
 /*
@@ -35,7 +36,9 @@ class userController {
       descripition,
     });
 
-    return res.status(201).json({ data });
+    return res.status(201).json({
+      data: excludeResponseMiddleware(data, ['password']),
+    });
   }
 
   async update() {}

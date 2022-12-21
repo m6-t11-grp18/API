@@ -12,6 +12,8 @@ class userBodyMiddleware {
     res: Response,
     next: NextFunction
   ) {
+    console.log(req.body, typeof req.body, Array.isArray(req.body));
+    
     const {
       name,
       email,

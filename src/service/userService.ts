@@ -1,7 +1,7 @@
 import { hash } from 'bcryptjs';
 import { Request, Response } from 'express';
 import { IUserCreate } from '../interfaces/index';
-import { excludeMiddleware } from '../middleware/excludeMiddleware';
+import { excludeResponseMiddleware } from '../middleware/excludeResponseMiddleware';
 import prismaConnect from '../utils/dataBaseClient/index';
 import { ConflitError } from '../utils/error/index';
 import authService from './authService';
@@ -62,7 +62,7 @@ class userService {
     });
 
     return {
-      user: excludeMiddleware(user, ['password', 'cpf']),
+      user,
       accessToken,
     };
   }

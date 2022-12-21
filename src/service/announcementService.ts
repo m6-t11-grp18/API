@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { IAnnouncementCreate } from '../interfaces';
-import { excludeMiddleware } from '../middleware/excludeMiddleware';
+import { excludeResponseMiddleware } from '../middleware/excludeResponseMiddleware';
 import imagesMiddleware from '../middleware/imagesMiddleware';
 import prismaConnect from '../utils/dataBaseClient';
 
@@ -15,6 +15,7 @@ class announcementService {
     milage,
     price,
     cover,
+    images,
   }: IAnnouncementCreate) {
     const announcement =
       await prismaConnect.announcement.create({
@@ -26,15 +27,10 @@ class announcementService {
           year,
           milage,
           price,
-          cover: cover[0],
+          cover:
+            cover === undefined ? undefined : cover[0]?.url,
           isActive: true,
           sold: false,
-        },
-        include: {
-          user: true,
-          bids: true,
-          images: true,
-          reply: true,
         },
       });
 
@@ -46,10 +42,32 @@ class announcementService {
       },
     });
 
-    return excludeMiddleware(announcement, [
-      'password',
-      'cpf',
-    ]);
+    if (images !== undefined) {
+      for (let elements of images) {
+        await prismaConnect.announcementImages.createMany({
+          data: {
+            AnnouncementId: announcement.id,
+            image: elements.url!,
+          },
+        });
+        await prismaConnect.userSessions.create({
+          data: {
+            UserId: userId,
+            ip,
+            type: 'user: create announcement image',
+          },
+        });
+      }
+    }
+    return await prismaConnect.announcement.findUnique({
+      where: { id: announcement.id },
+      include: {
+        user: true,
+        bids: true,
+        images: true,
+        reply: true,
+      },
+    });
   }
 
   async update() {}
@@ -57,6 +75,19 @@ class announcementService {
   async read() {}
 
   async delete() {}
+
+  async getAllProducts() {
+    const data = await prismaConnect.announcement.findMany({
+      include: {
+        user: true,
+        bids: true,
+        reply: true,
+        images: true,
+      },
+    });
+
+    return data;
+  }
 }
 
 export default new announcementService();

@@ -44,9 +44,9 @@ model Users {
 
   announcement Announcement[]
 
-  bids Bids[]
+  // bids Bids[]
 
-  reply Replys[]
+  // reply Replys[]
 
   @@map("users")
 }
@@ -131,7 +131,7 @@ model Announcement {
 model AnnouncementImages {
   id String @id @default(uuid())
 
-  image String
+  image String?
 
   createdAt DateTime  @default(now())
 
@@ -157,8 +157,8 @@ model Bids {
   announcement Announcement @relation(fields: [AnnouncementId], references: [id], onDelete: Cascade)
   AnnouncementId String
 
-  user Users @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId String
+  // user Users @relation(fields: [userId], references: [id], onDelete: Cascade)
+  // userId String
   
   @@map("announcement_bids")
 }
@@ -177,8 +177,8 @@ model Replys {
   announcement Announcement @relation(fields: [AnnouncementId], references: [id], onDelete: Cascade)
   AnnouncementId String
 
-  user Users @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId String
+  // user Users @relation(fields: [userId], references: [id], onDelete: Cascade)
+  // userId String
 
   @@map("announcement_replys")
 }
