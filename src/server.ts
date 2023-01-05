@@ -2,7 +2,9 @@
 import { Request, Response } from 'express';
 import App from './App';
 import { IEmailRequest } from './interfaces';
-import { sendEmail } from './nodemailer.util';
+import { sendEmail } from './utils/nodemailer';
+import { v4 as uuid } from 'uuid';
+import prismaConnect from './utils/dataBaseClient';
 
 // App.use(cors ())
 // App.use(bodyParser.urlencoded({extended : true, limit: "100mb"}));
@@ -21,16 +23,34 @@ import { sendEmail } from './nodemailer.util';
 
 // App.use(multipartMiddleware)
 
+
+
 App.post('/email', async (req: Request, res: Response) => {
   try {
     //Aqui pegamos o assunto, texto e o email do destinatário vindos do body da requisição
     //subject -> assunto
     //text -> texto
     //email -> email do destinatário
-    const { subject, text, to }: IEmailRequest = req.body;
+
+    const newṔassword = `${uuid()}`
+
+    const {id} = req.user
+
+    const updateUser = await prismaConnect.users.update({
+      where: {
+        id,
+      },
+      data: {
+        password: newṔassword ,
+      },
+    });
+
+    const { to }: IEmailRequest = req.body;
+    const subject = 'Recovery: Here your new password';
+    const text = `Your new password: ${newṔassword}`
 
     //Chamamos a função que fará o envio do email, passando os dados recebidos
-    await sendEmail({ subject, text, to });
+    await sendEmail({subject, text, to });
     return res.json({
       message: 'Email sended with success!',
     });

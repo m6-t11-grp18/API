@@ -1,6 +1,7 @@
 import { hash } from 'bcryptjs';
 import { Request, Response } from 'express';
 import {
+  IEmailRequest,
   IUserCreate,
   IUserDelete,
   IUserEdit,
@@ -12,6 +13,8 @@ import {
   NotFoundError,
 } from '../utils/error/index';
 import authService from './authService';
+import { v4 as uuid } from 'uuid';
+import { sendEmail } from '../utils/nodemailer';
 
 class userService {
   async create({
@@ -74,7 +77,7 @@ class userService {
     };
   }
 
-  async read() {
+  async readAll() {
     const AllUsers = await prismaConnect.users.findMany();
     if (!AllUsers) {
       throw new NotFoundError('No User Found.');
@@ -83,6 +86,7 @@ class userService {
   }
 
   async update({
+    id,
     name,
     email,
     password,
@@ -91,26 +95,21 @@ class userService {
   }: IUserEdit) {
     const updateUser = await prismaConnect.users.update({
       where: {
-        email: email,
+        id,
       },
       data: {
-        name: name,
-        email: email,
-        password: password,
-        phone: phone,
-        descripition: descripition,
+        name,
+        email,
+        password,
+        phone,
+        descripition,
       },
     });
 
-    const updatedUser =
-      await prismaConnect.users.findUnique({
-        where: { email },
-      });
-    return { updatedUser };
+    return { updateUser };
   }
 
   async delete({ userId }: IUserDelete) {
-
     const deleteUser = await prismaConnect.users.delete({
       where: {
         id: userId,

@@ -54,7 +54,10 @@ class userController {
       descripition,
     }: IUserEdit = req.body;
 
+    const { id } = req.user;
+
     const data = await userService.update({
+      id,
       name,
       email,
       password,
@@ -67,14 +70,25 @@ class userController {
     });
   }
 
-  async read(req: Request, res: Response) {
-    const data = await userService.read();
+  async readAll(req: Request, res: Response) {
+    const data = await userService.readAll();
 
-    return res.status(200).json({ data: data });
+    return res.status(200).json({
+      data: excludeResponseMiddleware(data, [
+        'password',
+        'email',
+        'cpf',
+        'phone',
+        'birth',
+        'isAdm',
+        'isActive',
+        'isVerify',
+      ]),
+    });
   }
 
   async delete(req: Request, res: Response) {
-    const { userId }: IUserDelete = req.body;
+    const userId = req.user.id;
 
     const data = await userService.delete({ userId });
 

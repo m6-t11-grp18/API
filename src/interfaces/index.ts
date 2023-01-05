@@ -32,6 +32,7 @@ export interface IUserCreate {
 }
 
 export interface IUserEdit {
+  id?: string;
   name?: string;
   email?: string;
   password?: string;

@@ -13,9 +13,8 @@ userRoutes.post(
 );
 
 userRoutes.get(
-  '/',
-  tokenMiddleware.user,
-  userController.read
+  '/all/',
+  userController.readAll
 );
 
 userRoutes.patch(
