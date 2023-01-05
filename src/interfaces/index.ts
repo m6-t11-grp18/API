@@ -158,4 +158,8 @@ export interface IReplyDelete {
   replyId: string;
 }
 
-
+export interface IEmailRequest {
+  to: string
+  subject: string
+  text: string
+}
