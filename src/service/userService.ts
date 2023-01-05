@@ -1,9 +1,16 @@
 import { hash } from 'bcryptjs';
 import { Request, Response } from 'express';
-import { IUserCreate } from '../interfaces/index';
+import {
+  IUserCreate,
+  IUserDelete,
+  IUserEdit,
+} from '../interfaces/index';
 import { excludeResponseMiddleware } from '../middleware/excludeResponseMiddleware';
 import prismaConnect from '../utils/dataBaseClient/index';
-import { ConflitError } from '../utils/error/index';
+import {
+  ConflitError,
+  NotFoundError,
+} from '../utils/error/index';
 import authService from './authService';
 
 class userService {
@@ -67,7 +74,51 @@ class userService {
     };
   }
 
-  async update() {}
+  async read() {
+    const AllUsers = await prismaConnect.users.findMany();
+    if (!AllUsers) {
+      throw new NotFoundError('No User Found.');
+    }
+    return AllUsers;
+  }
+
+  async update({
+    name,
+    email,
+    password,
+    phone,
+    descripition,
+  }: IUserEdit) {
+    const updateUser = await prismaConnect.users.update({
+      where: {
+        email: email,
+      },
+      data: {
+        name: name,
+        email: email,
+        password: password,
+        phone: phone,
+        descripition: descripition,
+      },
+    });
+
+    const updatedUser =
+      await prismaConnect.users.findUnique({
+        where: { email },
+      });
+    return { updatedUser };
+  }
+
+  async delete({ userId }: IUserDelete) {
+
+    const deleteUser = await prismaConnect.users.delete({
+      where: {
+        id: userId,
+      },
+    });
+
+    return { response: 'User deleted with success.' };
+  }
 }
 
 export default new userService();

@@ -1,5 +1,9 @@
 import { Request, Response } from 'express';
-import { IUserCreate } from '../interfaces/index';
+import {
+  IUserCreate,
+  IUserDelete,
+  IUserEdit,
+} from '../interfaces/index';
 import { excludeResponseMiddleware } from '../middleware/excludeResponseMiddleware';
 import userService from '../service/userService';
 // import authService from '../service/authService';
@@ -41,11 +45,43 @@ class userController {
     });
   }
 
-  async update() {}
+  async update(req: Request, res: Response) {
+    const {
+      name,
+      email,
+      password,
+      phone,
+      descripition,
+    }: IUserEdit = req.body;
 
-  async read() {}
+    const data = await userService.update({
+      name,
+      email,
+      password,
+      phone,
+      descripition,
+    });
 
-  async delete() {}
+    return res.status(200).json({
+      data: excludeResponseMiddleware(data, ['password']),
+    });
+  }
+
+  async read(req: Request, res: Response) {
+    const data = await userService.read();
+
+    return res.status(200).json({ data: data });
+  }
+
+  async delete(req: Request, res: Response) {
+    const { userId }: IUserDelete = req.body;
+
+    const data = await userService.delete({ userId });
+
+    return res
+      .status(200)
+      .json({ response: 'User Deleted with Sucess' });
+  }
 
   async addressCreate() {}
 
