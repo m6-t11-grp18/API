@@ -1,7 +1,8 @@
 import { Router } from 'express';
 import userController from '../controller/userController';
 import userBodyMiddleware from '../middleware/body/userBodyMiddleware';
-import veryfyBodyMiddeware from '../middleware/verifyBodyMiddeware';
+import tokenMiddleware from '../middleware/tokenMiddleware';
+import verifyBodyMiddeware from '../middleware/verifyBodyMiddeware';
 
 const userRoutes = Router();
 
@@ -11,13 +12,25 @@ userRoutes.post(
   userController.create
 );
 
-userRoutes.get('/');
+userRoutes.get(
+  '/',
+  tokenMiddleware.user,
+  userController.read
+);
 
-userRoutes.patch('/');
+userRoutes.patch(
+  '/',
+  tokenMiddleware.user,
+  userController.update
+);
 
-userRoutes.delete('/');
+userRoutes.delete(
+  '/',
+  tokenMiddleware.user,
+  userController.delete
+);
 
-// address
+// addresss
 
 userRoutes.post('/address');
 
