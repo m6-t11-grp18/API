@@ -1,11 +1,15 @@
 import { Request, Response } from 'express';
+import { v4 as uuid } from 'uuid';
+
 import {
+  IEmailRequest,
   IUserCreate,
   IUserDelete,
   IUserEdit,
 } from '../interfaces/index';
 import { excludeResponseMiddleware } from '../middleware/excludeResponseMiddleware';
 import userService from '../service/userService';
+import prismaConnect from '../utils/dataBaseClient';
 // import authService from '../service/authService';
 /*
 envio de imagens:
@@ -104,6 +108,44 @@ class userController {
   async addressRead() {}
 
   async addressDelete() {}
+
+  async passwordRecover(req: Request, res: Response) {
+    try {
+      //Aqui pegamos o assunto, texto e o email do destinatário vindos do body da requisição
+      //subject -> assunto
+      //text -> texto
+      //email -> email do destinatário
+
+      const newṔassword = `${uuid()}`;
+
+      const { id } = req.user;
+
+      const updateUser = await prismaConnect.users.update({
+        where: {
+          id,
+        },
+        data: {
+          password: newṔassword,
+        },
+      });
+
+      const { to }: IEmailRequest = req.body;
+      const subject = 'Recovery: Here your new password';
+      const text = `Your new password: ${newṔassword}`;
+
+      //Chamamos a função que fará o envio do email, passando os dados recebidos
+      await userService.sendEmail({ subject, text, to });
+      return res.json({
+        message: 'Email sended with success!',
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        return res.status(400).json({
+          message: error.message,
+        });
+      }
+    }
+  }
 }
 
 export default new userController();

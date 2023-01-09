@@ -12,10 +12,7 @@ userRoutes.post(
   userController.create
 );
 
-userRoutes.get(
-  '/all/',
-  userController.readAll
-);
+userRoutes.get('/all/', userController.readAll);
 
 userRoutes.patch(
   '/',
@@ -27,6 +24,12 @@ userRoutes.delete(
   '/',
   tokenMiddleware.user,
   userController.delete
+);
+
+userRoutes.post(
+  '/email/',
+  tokenMiddleware.user,
+  userController.passwordRecover
 );
 
 // addresss

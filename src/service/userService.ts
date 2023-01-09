@@ -14,7 +14,8 @@ import {
 } from '../utils/error/index';
 import authService from './authService';
 import { v4 as uuid } from 'uuid';
-import { sendEmail } from '../utils/nodemailer';
+import { createTransport } from 'nodemailer';
+import 'dotenv/config';
 
 class userService {
   async create({
@@ -117,6 +118,39 @@ class userService {
     });
 
     return { response: 'User deleted with success.' };
+  }
+
+  async sendEmail({ subject, text, to }: IEmailRequest) {
+      //Fazendo a conexão com o nosso servidor de SMPT
+  //Para a conexão funcionar, precisamos puxar o usuário e senha do outlook que foram colocados no .env
+  const transporter = createTransport({
+    host: 'smtp-mail.outlook.com',
+    port: 587,
+    secure: false,
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS,
+    },
+  });
+
+  //Com a conexão feita, usamos o método sendMail
+  //O método fará o envio do email de acordo com os parâmetros passados
+  await transporter
+    .sendMail({
+      from: process.env.SMTP_USER,
+      to: to,
+      subject: subject,
+      html: text,
+    })
+    .then(() => {
+      console.log('Email send with success');
+    })
+    .catch((err) => {
+      console.log(err);
+      throw new Error(
+        'Error sending email, try again later'
+      );
+    });
   }
 }
 
