@@ -1,6 +1,8 @@
 // import bodyParser from 'body-parser';
+import { Request, Response } from 'express';
 import App from './App';
-
+import { IEmailRequest } from './interfaces';
+import prismaConnect from './utils/dataBaseClient';
 
 // App.use(cors ())
 // App.use(bodyParser.urlencoded({extended : true, limit: "100mb"}));

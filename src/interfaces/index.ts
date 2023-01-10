@@ -32,6 +32,7 @@ export interface IUserCreate {
 }
 
 export interface IUserEdit {
+  id?: string;
   name?: string;
   email?: string;
   password?: string;
@@ -158,4 +159,8 @@ export interface IReplyDelete {
   replyId: string;
 }
 
-
+export interface IEmailRequest {
+  to: string
+  subject: string
+  text: string
+}
