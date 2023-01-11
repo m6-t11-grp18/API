@@ -9,3 +9,176 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+
+model Users {
+  id String @id @default(uuid())
+
+  name String
+
+  email String @unique
+
+  password String
+
+  cpf String
+
+  phone String?
+
+  birth String?
+
+  descripition String?
+
+  isActive Boolean?
+
+  isAdm Boolean
+
+  isVerify Boolean?
+
+  createdAt DateTime  @default(now())
+
+  updatedAt DateTime @updatedAt @default(now())
+   
+  userAddress UserAddress?
+
+  sessions UserSessions[]
+
+  announcement Announcement[]
+
+  // bids Bids[]
+
+  // reply Replys[]
+
+  @@map("users")
+}
+
+model UserAddress {
+  id String @id @default(uuid())
+
+  zipCode String?
+
+  state String
+
+  city String
+
+  street String
+
+  number String
+
+  complement String?
+
+  createdAt DateTime  @default(now())
+
+  updatedAt DateTime @updatedAt @default(now())
+
+  user Users @relation(fields: [UserId], references: [id], onDelete: Cascade)
+  UserId String @unique
+
+  @@map("user_address")
+}
+
+model UserSessions {
+  id String @id @default(uuid())
+
+  ip String?
+
+  type String?
+
+  createdAt DateTime @default(now())
+
+  user Users @relation(fields: [UserId], references: [id], onDelete: Cascade)
+  UserId String
+
+  @@map("user_sessions")
+}
+
+model Announcement {
+  id String @id @default(uuid())
+
+  title String?
+
+  saleType String?
+
+  descripition String?
+
+  year String?
+
+  milage String?
+
+  price String?
+
+  cover String?
+
+  isActive Boolean
+
+  sold Boolean
+
+  createdAt DateTime  @default(now())
+
+  updatedAt DateTime @updatedAt @default(now())
+
+  user Users @relation(fields: [UserId], references: [id], onDelete: Cascade)
+  UserId String
+
+  images AnnouncementImages[]
+
+  bids Bids[]
+
+  reply Replys[]
+
+  @@map("announcement")
+}
+
+model AnnouncementImages {
+  id String @id @default(uuid())
+
+  image String?
+
+  createdAt DateTime  @default(now())
+
+  updatedAt DateTime @updatedAt @default(now())
+
+  announcement Announcement @relation(fields: [AnnouncementId], references: [id], onDelete: Cascade)
+  AnnouncementId String
+
+  @@map("announcement_image")
+}
+
+model Bids {
+  id String @id @default(uuid())
+
+  userName String
+
+  bid String
+
+  winner Boolean?
+
+  createdAt DateTime  @default(now())
+
+  announcement Announcement @relation(fields: [AnnouncementId], references: [id], onDelete: Cascade)
+  AnnouncementId String
+
+  // user Users @relation(fields: [userId], references: [id], onDelete: Cascade)
+  // userId String
+  
+  @@map("announcement_bids")
+}
+
+model Replys {
+  id String @id @default(uuid())
+
+  userName String
+
+  reply String
+
+  createdAt DateTime  @default(now())
+
+  updatedAt DateTime @updatedAt @default(now())
+
+  announcement Announcement @relation(fields: [AnnouncementId], references: [id], onDelete: Cascade)
+  AnnouncementId String
+
+  // user Users @relation(fields: [userId], references: [id], onDelete: Cascade)
+  // userId String
+
+  @@map("announcement_replys")
+}

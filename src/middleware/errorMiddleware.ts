@@ -1,5 +1,5 @@
-import { NextFunction, Request, Response } from "express";
-import { RequestErrors } from "../../../utils/error";
+import { NextFunction, Request, Response } from 'express';
+import { RequestErrors } from '../utils/error/index';
 
 const errorMiddleware = (
   error: Error & Partial<RequestErrors>,
@@ -8,7 +8,9 @@ const errorMiddleware = (
   next: NextFunction
 ) => {
   const statusCode = error.statusCode ?? 500;
-  const message = error.statusCode ? error.message : "Internal Server Error";
+  const message : any = error.message
+    ? error.message
+    : 'Internal Server Error';
   return res.status(statusCode).json({ message });
 };
 
