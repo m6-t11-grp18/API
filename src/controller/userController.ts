@@ -32,9 +32,6 @@ class userController {
       descripition,
     }: IUserCreate = req.body;
 
-    console.log("name -->", name)
-
-
     const ip = req.ip;
 
     const data = await userService.create({
