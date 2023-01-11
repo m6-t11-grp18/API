@@ -13,6 +13,7 @@ class userBodyMiddleware {
     res: Response,
     next: NextFunction
   ) {
+    console.log("reqBody -->",req.body)
     const response = await verifyBodyMiddeware(
       req,
       [

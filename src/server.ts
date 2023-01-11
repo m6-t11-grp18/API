@@ -2,6 +2,8 @@
 import { Request, Response } from 'express';
 import App from './App';
 import { IEmailRequest } from './interfaces';
+import express from 'express';
+
 import prismaConnect from './utils/dataBaseClient';
 
 // App.use(cors ())
