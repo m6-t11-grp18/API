@@ -61,11 +61,11 @@ class TokenMiddleware {
           throw new UnauthorizedError('Invalid Token');
         }
 
-        if (!decoded.isAdm) {
-          throw new UnauthorizedError(
-            'Invalid credentials'
-          );
-        }
+        // if (!decoded.isAdm) {
+        //   throw new UnauthorizedError(
+        //     'Invalid credentials'
+        //   );
+        // }
 
         req.user = {
           id: decoded.sub,
