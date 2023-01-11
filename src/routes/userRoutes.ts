@@ -8,7 +8,7 @@ const userRoutes = Router();
 
 userRoutes.post(
   '/',
-  userBodyMiddleware.create,
+  // userBodyMiddleware.create,
   userController.create
 );
 
@@ -28,7 +28,6 @@ userRoutes.delete(
 
 userRoutes.post(
   '/email/',
-  tokenMiddleware.user,
   userController.passwordRecover
 );
 
