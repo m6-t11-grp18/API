@@ -7,7 +7,7 @@ const authRotes = Router();
 // user
 authRotes.post(
   '/',
-  authBodyMiddleware.login,
+  // authBodyMiddleware.login,
   authController.login
 );
 
