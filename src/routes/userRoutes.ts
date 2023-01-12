@@ -27,7 +27,7 @@ userRoutes.delete(
 );
 
 userRoutes.post(
-  '/email/',
+  '/resetpassword/',
   userController.passwordRecover
 );
 

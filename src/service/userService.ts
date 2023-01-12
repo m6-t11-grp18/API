@@ -16,6 +16,8 @@ import authService from './authService';
 import { v4 as uuid } from 'uuid';
 import { createTransport } from 'nodemailer';
 import 'dotenv/config';
+import { htmlBody } from '../utils/emails/htmlBody';
+import sendEmail from '../utils/emails/sendEmail';
 
 class userService {
   async create({
@@ -120,37 +122,39 @@ class userService {
     return { response: 'User deleted with success.' };
   }
 
-  async sendEmail({ subject, text, to }: IEmailRequest) {
-      //Fazendo a conexão com o nosso servidor de SMPT
-  //Para a conexão funcionar, precisamos puxar o usuário e senha do outlook que foram colocados no .env
-  const transporter = createTransport({
-    host: 'smtp-mail.outlook.com',
-    port: 587,
-    secure: false,
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
-    },
-  });
+  async sendEmail(email: string) {
+    const findUserEmail =
+      await prismaConnect.users.findUnique({
+        where: { email },
+      });
 
-  //Com a conexão feita, usamos o método sendMail
-  //O método fará o envio do email de acordo com os parâmetros passados
-  await transporter
-    .sendMail({
-      from: process.env.SMTP_USER,
-      to: to,
-      subject: subject,
-      html: text,
-    })
-    .then(() => {
-      console.log('Email send with success');
-    })
-    .catch((err) => {
-      console.log(err);
-      throw new Error(
-        'Error sending email, try again later'
-      );
+    if (!findUserEmail) {
+      throw new ConflitError('Email not found');
+    }
+
+    const newPassword = Math.random()
+      .toString(36)
+      .slice(-8);
+
+    const hashedPassword = await hash(
+      newPassword.toString(),
+      10
+    );
+
+    await prismaConnect.users.update({
+      where: { id: findUserEmail.id },
+      data: { password: hashedPassword },
     });
+
+    const html = htmlBody(newPassword, true);
+
+    await sendEmail({
+      to: email,
+      subject: 'Confirm your token',
+      html,
+    });
+
+    return;
   }
 }
 
