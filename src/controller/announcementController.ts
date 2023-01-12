@@ -56,13 +56,13 @@ class announcementController {
       cover,
       images,
     });
-    // data = excludeResponseMiddleware(data, [
-    //   'password',
-    //   'cpf',
-    //   'email',
-    //   'phone',
-    //   'birth',
-    // ]);
+
+    data = excludeResponseMiddleware(data, [
+      'password',
+      'cpf',
+      'phone',
+      'birth',
+    ]);
 
     return res.status(201).json({ data });
   }
