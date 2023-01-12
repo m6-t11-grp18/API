@@ -113,9 +113,12 @@ class userService {
   }
 
   async delete({ userId }: IUserDelete) {
-    const deleteUser = await prismaConnect.users.delete({
+    await prismaConnect.users.update({
       where: {
         id: userId,
+      },
+      data: {
+        isActive: false,
       },
     });
 

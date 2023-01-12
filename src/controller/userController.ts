@@ -94,7 +94,7 @@ class userController {
   async delete(req: Request, res: Response) {
     const userId = req.user.id;
 
-    const data = await userService.delete({ userId });
+    await userService.delete({ userId });
 
     return res
       .status(200)
