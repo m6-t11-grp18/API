@@ -4,7 +4,7 @@
   "private": false,
   "exports": "./scr/server",
   "engines": {
-    "node": "16.16"
+    "node": "16.18.0"
   },
   "main": "./scr/server",
   "repository": {
