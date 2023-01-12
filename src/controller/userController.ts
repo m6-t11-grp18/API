@@ -81,7 +81,6 @@ class userController {
     return res.status(200).json({
       data: excludeResponseMiddleware(data, [
         'password',
-        'email',
         'cpf',
         'phone',
         'birth',
@@ -113,11 +112,11 @@ class userController {
   async passwordRecover(req: Request, res: Response) {
     const { email } = req.body;
 
-    await userService.sendEmail(email)
+    await userService.sendEmail(email);
 
     return res
-    .status(200)
-    .json({ message: 'new password created' });
+      .status(200)
+      .json({ message: 'new password created' });
   }
 }
 
