@@ -91,7 +91,7 @@ export interface IAnnouncementCreate {
   milage: string;
   price: string;
   cover?: CloudinayResponse[];
-  images?: CloudinayResponse[]
+  images?: CloudinayResponse[];
 }
 
 export interface IAnnouncementEdit {
@@ -148,6 +148,7 @@ export interface IReplyCreate {
 }
 
 export interface IReplyEdit {
+  id: string;
   userId: string;
   announcementId: string;
   userName: string;
@@ -160,7 +161,7 @@ export interface IReplyDelete {
 }
 
 export interface IEmailRequest {
-  to: string
-  subject: string
-  text: string
+  to: string;
+  subject: string;
+  text: string;
 }

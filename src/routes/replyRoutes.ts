@@ -1,14 +1,14 @@
-import { Router } from "express";
-
+import { Router } from 'express';
+import tokenMiddleware from '../middleware/tokenMiddleware';
 
 const replyRoutes = Router();
 
-replyRoutes.post("/")
+replyRoutes.post('/', tokenMiddleware.user);
 
-replyRoutes.get("/")
+replyRoutes.get('/', tokenMiddleware.user);
 
-replyRoutes.patch("/")
+replyRoutes.patch('/', tokenMiddleware.user);
 
-replyRoutes.delete("/")
+replyRoutes.delete('/', tokenMiddleware.user);
 
-export default replyRoutes
+export default replyRoutes;

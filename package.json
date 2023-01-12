@@ -4,13 +4,10 @@
   "private": false,
   "exports": "./scr/server",
   "engines": {
-    "node": "16.16"
+    "node": "16.18.0"
   },
   "main": "./scr/server",
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/m6-t11-grp18/API.git"
-  },
+  "repository": "git+ssh://git@github.com/m6-t11-grp18/API.git",
   "author": "Fabiojcp <fabio50019@gmail.com>",
   "license": "MIT",
   "scripts": {

@@ -40,7 +40,7 @@ class App {
     this.server.use('/auth', authRotes);
     this.server.use('/user', userRoutes);
     this.server.use('/announcement', announcementRoutes);
-    // this.server.use('/reply', replyRoutes);
+    this.server.use('/reply', replyRoutes);
     // this.server.use('/bid', bidRoutes);
     this.server.use(errorMiddleware);
   }
