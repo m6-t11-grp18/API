@@ -81,7 +81,6 @@ class userController {
     return res.status(200).json({
       data: excludeResponseMiddleware(data, [
         'password',
-        'email',
         'cpf',
         'phone',
         'birth',
@@ -95,11 +94,11 @@ class userController {
   async delete(req: Request, res: Response) {
     const userId = req.user.id;
 
-    const data = await userService.delete({ userId });
+    await userService.delete({ userId });
 
     return res
       .status(200)
-      .json({ response: 'User Deleted with Sucess' });
+      .json({ message: 'User Deleted with Sucess' });
   }
 
   async addressCreate() {}
@@ -111,41 +110,13 @@ class userController {
   async addressDelete() {}
 
   async passwordRecover(req: Request, res: Response) {
-    try {
-      //Aqui pegamos o assunto, texto e o email do destinatário vindos do body da requisição
-      //subject -> assunto
-      //text -> texto
-      //email -> email do destinatário
+    const { email } = req.body;
 
-      const newṔassword = `${uuid()}`;
+    await userService.sendEmail(email);
 
-      const { id } = req.user;
-
-      const updateUser = await prismaConnect.users.update({
-        where: {
-          id,
-        },
-        data: {
-          password: newṔassword,
-        },
-      });
-
-      const { to }: IEmailRequest = req.body;
-      const subject = 'Recovery: Here your new password';
-      const text = `Your new password: ${newṔassword}`;
-
-      //Chamamos a função que fará o envio do email, passando os dados recebidos
-      await userService.sendEmail({ subject, text, to });
-      return res.json({
-        message: 'Email sended with success!',
-      });
-    } catch (error) {
-      if (error instanceof Error) {
-        return res.status(400).json({
-          message: error.message,
-        });
-      }
-    }
+    return res
+      .status(200)
+      .json({ message: 'new password created' });
   }
 }
 

@@ -1,11 +1,14 @@
 FROM node:16.18.0
 
-WORKDIR /server.ts
+WORKDIR /app
 
-COPY . .
+COPY "package.json" ./
+COPY prisma ./prisma/
 
 RUN yarn
 
 EXPOSE 3333
 
-CMD [ "node", "" ]
+COPY . .
+
+CMD [ "yarn", "dev" ]

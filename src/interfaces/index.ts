@@ -163,5 +163,6 @@ export interface IReplyDelete {
 export interface IEmailRequest {
   to: string;
   subject: string;
-  text: string;
+  text?: string;
+  html?: string;
 }
